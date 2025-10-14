@@ -1,6 +1,10 @@
-import Database from 'better-sqlite3';
-import fs from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
+import Database from 'better-sqlite3';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const databasesDir = path.resolve(__dirname, '../databases');
 
