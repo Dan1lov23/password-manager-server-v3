@@ -1,6 +1,16 @@
 import Database from 'better-sqlite3';
+import fs from 'fs';
+import path from 'path';
 
-const passwordsDb = new Database('../databases/passwords.db', { verbose: console.log });
+const databasesDir = path.resolve(__dirname, '../databases');
+
+if (!fs.existsSync(databasesDir)) {
+    fs.mkdirSync(databasesDir, { recursive: true });
+}
+
+const dbPath = path.join(databasesDir, 'passwords.db');
+
+const passwordsDb = new Database(dbPath, { verbose: console.log });
 
 try {
     passwordsDb.exec(`CREATE TABLE IF NOT EXISTS passwords (

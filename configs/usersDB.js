@@ -1,6 +1,19 @@
 import Database from 'better-sqlite3';
+import fs from 'fs';
+import path from 'path';
 
-const usersDb = new Database('../databases/users.db', { verbose: console.log });
+// Определяем абсолютный путь к папке базы данных
+const databasesDir = path.resolve(__dirname, '../databases');
+
+// Создаем папку, если она не существует
+if (!fs.existsSync(databasesDir)) {
+    fs.mkdirSync(databasesDir, { recursive: true });
+}
+
+// Полный путь к файлу базы данных
+const dbPath = path.join(databasesDir, 'users.db');
+
+const usersDb = new Database(dbPath, { verbose: console.log });
 
 try {
     usersDb.exec(`CREATE TABLE IF NOT EXISTS users (
