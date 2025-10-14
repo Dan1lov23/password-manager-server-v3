@@ -1,16 +1,17 @@
-import Database from 'better-sqlite3';
-import fs from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
+import Database from 'better-sqlite3';
 
-// Определяем абсолютный путь к папке базы данных
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const databasesDir = path.resolve(__dirname, '../databases');
 
-// Создаем папку, если она не существует
 if (!fs.existsSync(databasesDir)) {
     fs.mkdirSync(databasesDir, { recursive: true });
 }
 
-// Полный путь к файлу базы данных
 const dbPath = path.join(databasesDir, 'users.db');
 
 const usersDb = new Database(dbPath, { verbose: console.log });
